@@ -47,7 +47,7 @@ const invokeChaincode = async function(peerNames, channelName, chaincodeName, fc
 			chainId: channelName,
 			txId: tx_id
 		};
-
+		console.log("#################### Request that is being submitted for endorsements : ", request)
 		let results = await channel.sendTransactionProposal(request);
 
 		// the returned object has both the endorsement results
@@ -60,6 +60,7 @@ const invokeChaincode = async function(peerNames, channelName, chaincodeName, fc
 		// response will also include signatures required to be committed
 		let all_good = true;
 		for (const i in proposalResponses) {
+			console.log("############### Endorsement Responses Received Back: ", proposalResponses)
 			if (proposalResponses[i] instanceof Error) {
 				all_good = false;
 				error_message = util.format('invoke chaincode proposal resulted in an error :: %s', proposalResponses[i].toString());
